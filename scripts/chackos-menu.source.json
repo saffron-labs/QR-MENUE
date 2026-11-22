@@ -1,0 +1,901 @@
+[
+ {
+  "id": "dish-mandi-1",
+  "branchId": "branch-1",
+  "name": "Kuzhi Mandi (with Mandi Rice)",
+  "category": "mandi",
+  "price": 220,
+  "description": "Authentic Yemeni pit-cooked chicken on smoky fragrant long-grain mandi rice. Served with garlic mayo (toum), spicy tomato chutney (sahawiq) and crisp pickled salad.",
+  "elements": [
+   "Smoky Pit-Cooked Tender Chicken (1 Pc = ¼ Chicken)",
+   "Fragrant Long-Grain Mandi Rice",
+   "House-Whipped Garlic Mayo",
+   "Dakkoos / Spicy Tomato Chutney",
+   "Pickled Cabbage & Carrot Salad"
+  ],
+  "calories": "680 kcal",
+  "prepTime": "8-10 min",
+  "spiciness": "Mild",
+  "tags": [
+   "Signature Mandi",
+   "Pit-Cooked",
+   "Must Try"
+  ],
+  "stock": 24,
+  "isAvailable": true,
+  "image": "assets/chackos-banner.jpg",
+  "allowCutlery": true,
+  "allowSpiceChoice": true,
+  "isMandiBiryaniChoice": false
+ },
+ {
+  "id": "dish-mandi-2",
+  "branchId": "branch-1",
+  "name": "Kuzhi Chicken Only (No Rice)",
+  "category": "mandi",
+  "price": 180,
+  "description": "Tender pit-cooked chicken only (1/4 piece) marinated in traditional Yemeni spices and charred gently in subterranean pit heat. Served with garlic mayo and tomato chutney.",
+  "elements": [
+   "Pit-Cooked Chicken Quarter (¼ Chicken)",
+   "Garlic Mayo Dip",
+   "Spicy Tomato Chutney",
+   "Pickled Salad"
+  ],
+  "calories": "390 kcal",
+  "prepTime": "6-8 min",
+  "spiciness": "Mild",
+  "tags": [
+   "Keto-Friendly",
+   "Protein-Rich"
+  ],
+  "stock": 18,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": true,
+  "allowSpiceChoice": true,
+  "isMandiBiryaniChoice": false
+ },
+ {
+  "id": "dish-combo-1",
+  "branchId": "branch-1",
+  "name": "Alfaham Mandi / Biryani Combo",
+  "category": "mandi-combos",
+  "price": 240,
+  "description": "Pick your rice: Smoky Mandi Rice or Dum Biryani Rice. Topped with charcoal-grilled Alfaham chicken (1/4 pc) with house spice blend, mayo, chutney & salad.",
+  "elements": [
+   "Charcoal-Grilled Alfaham Chicken (¼ Chicken)",
+   "Choice: Smoky Mandi Rice OR Dum Biryani Rice",
+   "Garlic Mayo",
+   "Kerala Tomato Chutney",
+   "Pickled Salad"
+  ],
+  "calories": "740 kcal",
+  "prepTime": "10-12 min",
+  "spiciness": "Medium",
+  "tags": [
+   "Chef Special",
+   "Grill on Rice"
+  ],
+  "stock": 20,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": true,
+  "allowSpiceChoice": true,
+  "isMandiBiryaniChoice": true
+ },
+ {
+  "id": "dish-combo-2",
+  "branchId": "branch-1",
+  "name": "Shawaya Mandi / Biryani Combo",
+  "category": "mandi-combos",
+  "price": 240,
+  "description": "Pick your rice: Smoky Mandi or Dum Biryani Rice. Topped with golden spit-roasted Shawaya chicken with crisp golden skin, garlic mayo, chutney & salad.",
+  "elements": [
+   "Crisp Golden Skin Shawaya Chicken (¼ Chicken)",
+   "Choice: Smoky Mandi Rice OR Dum Biryani Rice",
+   "Garlic Mayo",
+   "Shawaya Dip",
+   "Salad"
+  ],
+  "calories": "710 kcal",
+  "prepTime": "10 min",
+  "spiciness": "Mild",
+  "tags": [
+   "Rotisserie",
+   "Popular"
+  ],
+  "stock": 16,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": true,
+  "allowSpiceChoice": true,
+  "isMandiBiryaniChoice": true
+ },
+ {
+  "id": "dish-combo-3",
+  "branchId": "branch-1",
+  "name": "Peri Peri Mandi / Biryani Combo",
+  "category": "mandi-combos",
+  "price": 250,
+  "description": "Tangy and fiery Peri Peri glazed grilled chicken served over your choice of Smoky Mandi Rice or Dum Biryani Rice. With mayo, chutney and salad.",
+  "elements": [
+   "Fiery Peri Peri Glazed Chicken (¼ Chicken)",
+   "Smoky Mandi Rice OR Dum Biryani Rice",
+   "Garlic Mayo Dip",
+   "Tomato Chutney",
+   "Pickled Salad"
+  ],
+  "calories": "760 kcal",
+  "prepTime": "12 min",
+  "spiciness": "Hot",
+  "tags": [
+   "Fiery Heat",
+   "Spicy Lovers"
+  ],
+  "stock": 14,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": true,
+  "allowSpiceChoice": true,
+  "isMandiBiryaniChoice": true
+ },
+ {
+  "id": "dish-combo-4",
+  "branchId": "branch-1",
+  "name": "Butter Pepper Mandi / Biryani Combo",
+  "category": "mandi-combos",
+  "price": 250,
+  "description": "Rich creamy butter and cracked black pepper coated grilled chicken over Smoky Mandi or Dum Biryani Rice. Served with mayo, chutney and salad.",
+  "elements": [
+   "Butter Pepper Coated Grilled Chicken (¼ Chicken)",
+   "Cracked Malabar Black Pepper",
+   "Smoky Mandi OR Dum Biryani Rice",
+   "Garlic Mayo",
+   "Salad"
+  ],
+  "calories": "780 kcal",
+  "prepTime": "12 min",
+  "spiciness": "Medium",
+  "tags": [
+   "Malabar Pepper",
+   "Rich Butter"
+  ],
+  "stock": 12,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": true,
+  "allowSpiceChoice": true,
+  "isMandiBiryaniChoice": true
+ },
+ {
+  "id": "dish-combo-5",
+  "branchId": "branch-1",
+  "name": "Shawaya Masala Mandi / Biryani Combo",
+  "category": "mandi-combos",
+  "price": 250,
+  "description": "Spit-roasted rotisserie chicken rubbed with aromatic Indian masala over your choice of Smoky Mandi or Dum Biryani Rice. Includes Shawaya masala dip.",
+  "elements": [
+   "Rotisserie Chicken Rubbed with Masala (¼ Chicken)",
+   "Smoky Mandi OR Dum Biryani Rice",
+   "Shawaya Masala Dip",
+   "Pickled Salad"
+  ],
+  "calories": "750 kcal",
+  "prepTime": "10 min",
+  "spiciness": "Medium",
+  "tags": [
+   "Desi Spiced",
+   "Signature"
+  ],
+  "stock": 15,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": true,
+  "allowSpiceChoice": true,
+  "isMandiBiryaniChoice": true
+ },
+ {
+  "id": "dish-combo-6",
+  "branchId": "branch-1",
+  "name": "Honey Chilli Mandi / Biryani Combo",
+  "category": "mandi-combos",
+  "price": 260,
+  "description": "Sweet golden wild honey and roasted red chilli heat glazed grilled chicken on fragrant Mandi or Dum Biryani Rice with garlic mayo and salad.",
+  "elements": [
+   "Sweet Honey & Red Chilli Glazed Chicken (¼ Chicken)",
+   "Smoky Mandi OR Dum Biryani Rice",
+   "Garlic Mayo",
+   "Salad"
+  ],
+  "calories": "790 kcal",
+  "prepTime": "12 min",
+  "spiciness": "Medium",
+  "tags": [
+   "Sweet & Spicy",
+   "Chef Favorite"
+  ],
+  "stock": 10,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": true,
+  "allowSpiceChoice": true,
+  "isMandiBiryaniChoice": true
+ },
+ {
+  "id": "dish-combo-7",
+  "branchId": "branch-1",
+  "name": "Creamy Mandi / Biryani Combo",
+  "category": "mandi-combos",
+  "price": 270,
+  "description": "Creamy garlic-herb marinated chicken grilled to succulent perfection, served over hot Mandi or Dum Biryani Rice. Rich, aromatic and mild.",
+  "elements": [
+   "Creamy Garlic-Herb Marinated Chicken (¼ Chicken)",
+   "Smoky Mandi OR Dum Biryani Rice",
+   "Garlic Toum Mayo",
+   "Salad"
+  ],
+  "calories": "810 kcal",
+  "prepTime": "12 min",
+  "spiciness": "Mild",
+  "tags": [
+   "Melt-In-Mouth",
+   "Creamy"
+  ],
+  "stock": 9,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": true,
+  "allowSpiceChoice": true,
+  "isMandiBiryaniChoice": true
+ },
+ {
+  "id": "dish-shawarma-1",
+  "branchId": "branch-1",
+  "name": "Chicken Shawarma Roll",
+  "category": "shawarma",
+  "price": 130,
+  "description": "Spit-roasted chicken, house garlic mayo (toum) and crunchy pickles rolled in soft freshly-made bread. Small spicy pickled salad on the side, free.",
+  "elements": [
+   "Spit-Roasted Shredded Chicken",
+   "Signature Garlic Mayo (Toum)",
+   "Crisp Brined Pickles",
+   "Soft Lebanese Bread",
+   "Free Small Pickled Salad"
+  ],
+  "calories": "420 kcal",
+  "prepTime": "5 min",
+  "spiciness": "Mild",
+  "tags": [
+   "BESTSELLER",
+   "Street Classic"
+  ],
+  "stock": 35,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": false,
+  "allowSpiceChoice": true,
+  "isMandiBiryaniChoice": false
+ },
+ {
+  "id": "dish-shawarma-2",
+  "branchId": "branch-1",
+  "name": "Full Meat Shawarma Roll",
+  "category": "shawarma",
+  "price": 180,
+  "description": "Double portion of slow-roasted chicken, rich garlic mayo, zero veggies. Pure roasted meat wrapped in warm soft bread for true meat lovers.",
+  "elements": [
+   "Double Spit-Roasted Chicken",
+   "Generous Garlic Mayo",
+   "Zero Vegetables / No Fillers",
+   "Warm Soft Bread"
+  ],
+  "calories": "580 kcal",
+  "prepTime": "5 min",
+  "spiciness": "Mild",
+  "tags": [
+   "Double Meat",
+   "Zero Veggies",
+   "Carnivore Pick"
+  ],
+  "stock": 25,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1529042410759-befb1204b468?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": false,
+  "allowSpiceChoice": true,
+  "isMandiBiryaniChoice": false
+ },
+ {
+  "id": "dish-shawarma-3",
+  "branchId": "branch-1",
+  "name": "Shawarma Plate",
+  "category": "shawarma",
+  "price": 160,
+  "description": "Spit-roasted shawarma chicken served open on a platter with paper-thin Rumali Roti, creamy garlic mayo and spicy house-pickled salad.",
+  "elements": [
+   "Carved Shawarma Chicken",
+   "Rumali Roti Flatbread",
+   "Garlic Mayo (Toum)",
+   "Spicy Pickled Cabbage & Cucumber Salad"
+  ],
+  "calories": "490 kcal",
+  "prepTime": "6 min",
+  "spiciness": "Mild",
+  "tags": [
+   "Open Platter",
+   "Includes Rumali"
+  ],
+  "stock": 20,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": true,
+  "allowSpiceChoice": true,
+  "isMandiBiryaniChoice": false
+ },
+ {
+  "id": "dish-grill-1",
+  "branchId": "branch-1",
+  "name": "Alfaham Classic (1 Pc)",
+  "category": "grills",
+  "price": 180,
+  "description": "Charcoal-grilled quarter chicken marinated in house Arabian-Kerala Alfaham spice blend. Includes 1 garlic mayo, 1 chutney, and side: rumali free or porotta +₹5.",
+  "elements": [
+   "Charcoal-Grilled Chicken Quarter (¼ Chicken)",
+   "House Alfaham Masala Blend",
+   "Garlic Mayo",
+   "Tomato Chutney",
+   "Choice: Rumali (Free) or Porotta (+₹5)"
+  ],
+  "calories": "410 kcal",
+  "prepTime": "12-14 min",
+  "spiciness": "Medium",
+  "tags": [
+   "Charcoal Grilled",
+   "1 Pc = ¼ Chicken"
+  ],
+  "stock": 18,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": true,
+  "allowSpiceChoice": true,
+  "isGrillBreadChoice": true
+ },
+ {
+  "id": "dish-grill-2",
+  "branchId": "branch-1",
+  "name": "Alfaham Peri Peri (1 Pc)",
+  "category": "grills",
+  "price": 190,
+  "description": "Tangy, fiery peri peri glaze over charcoal-grilled quarter chicken. Includes 1 garlic mayo, 1 chutney, and side: rumali free or porotta +₹5.",
+  "elements": [
+   "Charcoal-Grilled Chicken (¼ Chicken)",
+   "Fiery African Birdseye Peri Peri Glaze",
+   "Garlic Mayo",
+   "Tomato Chutney",
+   "Side Choice: Rumali/Porotta"
+  ],
+  "calories": "430 kcal",
+  "prepTime": "12-14 min",
+  "spiciness": "Hot",
+  "tags": [
+   "Spicy Tangy",
+   "Fiery Glaze"
+  ],
+  "stock": 15,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": true,
+  "allowSpiceChoice": true,
+  "isGrillBreadChoice": true
+ },
+ {
+  "id": "dish-grill-3",
+  "branchId": "branch-1",
+  "name": "Alfaham Butter Pepper (1 Pc)",
+  "category": "grills",
+  "price": 190,
+  "description": "Charcoal chicken smothered in melted butter and coarse cracked Malabar black pepper. Includes 1 garlic mayo, 1 chutney, and rumali or porotta.",
+  "elements": [
+   "Charcoal Chicken (¼ Chicken)",
+   "Melted Dairy Butter",
+   "Cracked Malabar Black Pepper",
+   "Garlic Mayo",
+   "Chutney",
+   "Rumali or Porotta"
+  ],
+  "calories": "460 kcal",
+  "prepTime": "12-14 min",
+  "spiciness": "Medium",
+  "tags": [
+   "Black Pepper",
+   "Butter Glazed"
+  ],
+  "stock": 14,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": true,
+  "allowSpiceChoice": true,
+  "isGrillBreadChoice": true
+ },
+ {
+  "id": "dish-grill-4",
+  "branchId": "branch-1",
+  "name": "Alfaham Honey Chilli (1 Pc)",
+  "category": "grills",
+  "price": 200,
+  "description": "Sweet natural honey and hot crushed red chilli seeds glazed over sizzling charcoal chicken. Includes garlic mayo, chutney, rumali or porotta.",
+  "elements": [
+   "Charcoal Chicken (¼ Chicken)",
+   "Natural Honey Glaze",
+   "Roasted Crushed Red Chillies",
+   "Garlic Mayo",
+   "Chutney",
+   "Side Bread"
+  ],
+  "calories": "470 kcal",
+  "prepTime": "12-14 min",
+  "spiciness": "Medium",
+  "tags": [
+   "Sweet Heat",
+   "Popular"
+  ],
+  "stock": 12,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": true,
+  "allowSpiceChoice": true,
+  "isGrillBreadChoice": true
+ },
+ {
+  "id": "dish-grill-5",
+  "branchId": "branch-1",
+  "name": "Alfaham Creamy (1 Pc)",
+  "category": "grills",
+  "price": 210,
+  "description": "Creamy garlic-herb marinade on charcoal quarter chicken. Velvet smooth texture with mild warmth. Includes garlic mayo, chutney, rumali or porotta.",
+  "elements": [
+   "Charcoal Chicken (¼ Chicken)",
+   "Creamy Garlic-Herb Marinade",
+   "Garlic Toum Dip",
+   "Tomato Chutney",
+   "Side Bread"
+  ],
+  "calories": "490 kcal",
+  "prepTime": "12-14 min",
+  "spiciness": "Mild",
+  "tags": [
+   "Rich Creamy",
+   "Melt In Mouth"
+  ],
+  "stock": 10,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": true,
+  "allowSpiceChoice": true,
+  "isGrillBreadChoice": true
+ },
+ {
+  "id": "dish-grill-6",
+  "branchId": "branch-1",
+  "name": "Shawaya Classic (1 Pc)",
+  "category": "grills",
+  "price": 180,
+  "description": "Spit-roasted rotisserie quarter chicken with crisp golden skin and juicy meat. Includes 1 garlic mayo, 1 Shawaya masala dip, and rumali or porotta.",
+  "elements": [
+   "Rotisserie Roasted Chicken (¼ Chicken)",
+   "Crisp Golden Skin",
+   "Garlic Mayo",
+   "Special Shawaya Masala Dip",
+   "Rumali or Porotta"
+  ],
+  "calories": "390 kcal",
+  "prepTime": "8 min",
+  "spiciness": "Mild",
+  "tags": [
+   "Rotisserie Crisp",
+   "Juicy Skin"
+  ],
+  "stock": 16,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": true,
+  "allowSpiceChoice": true,
+  "isGrillBreadChoice": true
+ },
+ {
+  "id": "dish-grill-7",
+  "branchId": "branch-1",
+  "name": "Shawaya Masala (1 Pc)",
+  "category": "grills",
+  "price": 190,
+  "description": "Rotisserie quarter chicken rubbed with deep Indian roast masala spices. Includes 1 garlic mayo, 1 Shawaya masala dip, and rumali or porotta.",
+  "elements": [
+   "Rotisserie Chicken (¼ Chicken)",
+   "Roasted Indian Masala Rub",
+   "Garlic Mayo",
+   "Shawaya Dip",
+   "Side Bread Choice"
+  ],
+  "calories": "420 kcal",
+  "prepTime": "8 min",
+  "spiciness": "Medium",
+  "tags": [
+   "Masala Rub",
+   "Desi Roast"
+  ],
+  "stock": 15,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": true,
+  "allowSpiceChoice": true,
+  "isGrillBreadChoice": true
+ },
+ {
+  "id": "dish-curry-1",
+  "branchId": "branch-1",
+  "name": "Chackos Chicken Curry",
+  "category": "curry-breads",
+  "price": 130,
+  "description": "Traditional Kerala-style chicken curry slow-simmered in rich onion-tomato gravy with fresh curry leaves, coconut oil aroma and aromatic Malabar spices.",
+  "elements": [
+   "Tender Chicken Pieces",
+   "Slow-Caramelized Onion-Tomato Gravy",
+   "Fresh Kerala Curry Leaves",
+   "Cold-Pressed Coconut Oil Infusion",
+   "Crushed Fennel & Green Chillies"
+  ],
+  "calories": "340 kcal",
+  "prepTime": "6 min",
+  "spiciness": "Medium",
+  "tags": [
+   "Kerala Homestyle",
+   "Curry Leaf Aroma"
+  ],
+  "stock": 22,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": true,
+  "allowSpiceChoice": true,
+  "isMandiBiryaniChoice": false
+ },
+ {
+  "id": "dish-bread-1",
+  "branchId": "branch-1",
+  "name": "Kerala Porotta",
+  "category": "curry-breads",
+  "price": 20,
+  "description": "Soft, flaky, spiral multi-layered traditional Malabar flatbread beaten hot off the tawa. Contains egg. The quintessential pair with Chackos Chicken Curry or Alfaham.",
+  "elements": [
+   "Layered Flaky Flatbread (Porotta)",
+   "Hand-Tossed & Beaten Hot",
+   "Contains Egg",
+   "Golden Crispy Rings"
+  ],
+  "calories": "220 kcal",
+  "prepTime": "2 min",
+  "spiciness": "None",
+  "tags": [
+   "Flaky Malabar",
+   "Must Order"
+  ],
+  "stock": 100,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": false,
+  "allowSpiceChoice": false,
+  "isMandiBiryaniChoice": false
+ },
+ {
+  "id": "dish-bread-2",
+  "branchId": "branch-1",
+  "name": "Rumali Roti",
+  "category": "curry-breads",
+  "price": 15,
+  "description": "Paper-thin handkerchief bread baked on an inverted domed tawa. Soft, delicate, and wraps effortlessly around juicy grilled meats.",
+  "elements": [
+   "Paper-Thin Handkerchief Bread",
+   "Freshly Baked on Dome Tawa",
+   "Soft & Flexible"
+  ],
+  "calories": "140 kcal",
+  "prepTime": "2 min",
+  "spiciness": "None",
+  "tags": [
+   "Paper Thin",
+   "Light"
+  ],
+  "stock": 80,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1506084868230-bb9d95c24759?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": false,
+  "allowSpiceChoice": false,
+  "isMandiBiryaniChoice": false
+ },
+ {
+  "id": "dish-rice-1",
+  "branchId": "branch-1",
+  "name": "Chicken Dum Biryani",
+  "category": "biryani-rice",
+  "price": 140,
+  "description": "South Indian dum, layered spiced rice with tender bone-in chicken marinated in yogurt, mint, green chillies and golden fried onions. Medium spice.",
+  "elements": [
+   "Khaima / Basmati Layered Spiced Rice",
+   "Tender Bone-In Marinated Chicken",
+   "Golden Crisp Birista Onions",
+   "Fresh Mint & Cilantro Herbs",
+   "Ghee Infusion"
+  ],
+  "calories": "610 kcal",
+  "prepTime": "5 min",
+  "spiciness": "Medium",
+  "tags": [
+   "South Indian Dum",
+   "Value Feast"
+  ],
+  "stock": 30,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": true,
+  "allowSpiceChoice": true,
+  "isMandiBiryaniChoice": false
+ },
+ {
+  "id": "dish-rice-2",
+  "branchId": "branch-1",
+  "name": "Mandi Rice (1 Portion)",
+  "category": "biryani-rice",
+  "price": 60,
+  "description": "A single portion of smoky, golden aromatic Mandi rice prepared with cardamom, dried lime (loomi), cloves, and subterranean charcoal essence.",
+  "elements": [
+   "Smoky Fragrant Mandi Rice",
+   "Omani Dried Black Lime (Loomi)",
+   "Cardamom & Cloves",
+   "Charcoal Smoke Infusion"
+  ],
+  "calories": "320 kcal",
+  "prepTime": "2 min",
+  "spiciness": "Mild",
+  "tags": [
+   "Smoky Fragrant",
+   "Extra Portion"
+  ],
+  "stock": 50,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": true,
+  "allowSpiceChoice": false,
+  "isMandiBiryaniChoice": false
+ },
+ {
+  "id": "dish-rice-3",
+  "branchId": "branch-1",
+  "name": "Biryani Rice (1 Portion)",
+  "category": "biryani-rice",
+  "price": 60,
+  "description": "A single portion of fragrant South Indian dum biryani rice cooked with ghee, fried onions, and whole spices.",
+  "elements": [
+   "Spiced Dum Biryani Rice",
+   "Fried Crispy Onions",
+   "Star Anise & Green Cardamom",
+   "Ghee Notes"
+  ],
+  "calories": "310 kcal",
+  "prepTime": "2 min",
+  "spiciness": "Medium",
+  "tags": [
+   "Spiced Dum Rice",
+   "Extra Portion"
+  ],
+  "stock": 45,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": true,
+  "allowSpiceChoice": false,
+  "isMandiBiryaniChoice": false
+ },
+ {
+  "id": "dish-side-1",
+  "branchId": "branch-1",
+  "name": "Fresh Salad Plate",
+  "category": "sides-dips",
+  "price": 40,
+  "description": "Crisp garden fresh cucumber, carrot and green chilli slices.",
+  "elements": [
+   "Sliced Crisp Cucumber",
+   "Sweet Carrot Sticks",
+   "Green Chilli",
+   "Lemon Wedge"
+  ],
+  "calories": "45 kcal",
+  "prepTime": "2 min",
+  "spiciness": "None",
+  "tags": [
+   "Fresh Veg"
+  ],
+  "stock": 40,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": false,
+  "allowSpiceChoice": false,
+  "isMandiBiryaniChoice": false
+ },
+ {
+  "id": "dish-side-2",
+  "branchId": "branch-1",
+  "name": "Pickled Salad (Spicy)",
+  "category": "sides-dips",
+  "price": 40,
+  "description": "House-made spicy cabbage, carrot, and beetroot pickle brined with vinegar and green chillies.",
+  "elements": [
+   "Brined Cabbage & Carrot",
+   "Spicy Vinegar & Green Chillies",
+   "Beetroot Tint"
+  ],
+  "calories": "55 kcal",
+  "prepTime": "2 min",
+  "spiciness": "Hot",
+  "tags": [
+   "House Brined",
+   "Tangy Spicy"
+  ],
+  "stock": 35,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": false,
+  "allowSpiceChoice": false,
+  "isMandiBiryaniChoice": false
+ },
+ {
+  "id": "dish-side-3",
+  "branchId": "branch-1",
+  "name": "Onion Plate with Lemon",
+  "category": "sides-dips",
+  "price": 30,
+  "description": "Thinly sliced crisp red onion rings served with juicy fresh lemon wedges.",
+  "elements": [
+   "Crisp Red Onion Rings",
+   "Fresh Juicy Lemon Halves"
+  ],
+  "calories": "30 kcal",
+  "prepTime": "2 min",
+  "spiciness": "None",
+  "tags": [
+   "Crisp Onion"
+  ],
+  "stock": 50,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": false,
+  "allowSpiceChoice": false,
+  "isMandiBiryaniChoice": false
+ },
+ {
+  "id": "dish-dip-1",
+  "branchId": "branch-1",
+  "name": "Garlic Mayo (Toum Dip)",
+  "category": "sides-dips",
+  "price": 20,
+  "description": "Extra cup of Chackos signature fluffy white garlic toum mayonnaise. Creamy, punchy and velvety.",
+  "elements": [
+   "Fresh Crushed Garlic",
+   "Whipped Oil & Sea Salt",
+   "Lemon Juice"
+  ],
+  "calories": "90 kcal",
+  "prepTime": "1 min",
+  "spiciness": "None",
+  "tags": [
+   "Signature Toum",
+   "House Favorite"
+  ],
+  "stock": 60,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1472476443507-c7a5948772fc?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": false,
+  "allowSpiceChoice": false,
+  "isMandiBiryaniChoice": false
+ },
+ {
+  "id": "dish-dip-2",
+  "branchId": "branch-1",
+  "name": "Tomato Chutney (Sahawiq/Dakkoos)",
+  "category": "sides-dips",
+  "price": 20,
+  "description": "Spicy Arabian-Kerala tomato dip blended with green chillies, garlic and fresh cilantro.",
+  "elements": [
+   "Vine Tomatoes",
+   "Fiery Green Chillies",
+   "Garlic Cloves",
+   "Fresh Coriander Leaves"
+  ],
+  "calories": "35 kcal",
+  "prepTime": "1 min",
+  "spiciness": "Hot",
+  "tags": [
+   "Spicy Dakkoos"
+  ],
+  "stock": 60,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1472476443507-c7a5948772fc?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": false,
+  "allowSpiceChoice": false,
+  "isMandiBiryaniChoice": false
+ },
+ {
+  "id": "dish-dip-3",
+  "branchId": "branch-1",
+  "name": "Mint Chutney",
+  "category": "sides-dips",
+  "price": 20,
+  "description": "Refreshing green chutney prepared with garden fresh mint, coriander, roasted cumin and green chillies.",
+  "elements": [
+   "Garden Fresh Mint",
+   "Coriander Leaves",
+   "Roasted Cumin",
+   "Green Chillies",
+   "Lemon Juice"
+  ],
+  "calories": "25 kcal",
+  "prepTime": "1 min",
+  "spiciness": "Medium",
+  "tags": [
+   "Cooling Mint"
+  ],
+  "stock": 50,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1472476443507-c7a5948772fc?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": false,
+  "allowSpiceChoice": false,
+  "isMandiBiryaniChoice": false
+ },
+ {
+  "id": "dish-dip-4",
+  "branchId": "branch-1",
+  "name": "Shawaya Masala Dip",
+  "category": "sides-dips",
+  "price": 20,
+  "description": "Spiced aromatic masala gravy dip specially crafted for dipping rotisserie Shawaya chicken.",
+  "elements": [
+   "Roasted Masala Gravy",
+   "Curry Spices",
+   "Pepper Reduction"
+  ],
+  "calories": "45 kcal",
+  "prepTime": "1 min",
+  "spiciness": "Medium",
+  "tags": [
+   "Shawaya Special"
+  ],
+  "stock": 50,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1472476443507-c7a5948772fc?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": false,
+  "allowSpiceChoice": false,
+  "isMandiBiryaniChoice": false
+ },
+ {
+  "id": "dish-drink-1",
+  "branchId": "branch-1",
+  "name": "Packaged Water & Chilled Cans",
+  "category": "drinks",
+  "price": 20,
+  "description": "A changing selection of bottled mineral water and chilled cold drinks (Thums Up, Coca Cola, Sprite). Always at MRP. Ask staff what is chilled today.",
+  "elements": [
+   "Chilled Cans (Thums Up / Coca-Cola / Sprite)",
+   "Bottled Mineral Water",
+   "Served Chilled at MRP"
+  ],
+  "calories": "0-140 kcal",
+  "prepTime": "1 min",
+  "spiciness": "None",
+  "tags": [
+   "Chilled Cans",
+   "At MRP"
+  ],
+  "stock": 50,
+  "isAvailable": true,
+  "image": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=800&q=80",
+  "allowCutlery": false,
+  "allowSpiceChoice": false,
+  "isMandiBiryaniChoice": false
+ }
+]

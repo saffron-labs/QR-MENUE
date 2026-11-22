@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+:root {
+  --cream: #f4ede4;
+  --ink: #17120e;
+  --ember: #e4572e;
+  --peach: #f7d2be;
+  --muted: #7a6e62;
+}
+
+@theme inline {
+  --color-cream: var(--cream);
+  --color-ink: var(--ink);
+  --color-ember: var(--ember);
+  --color-peach: var(--peach);
+  --color-muted: var(--muted);
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-display: var(--font-bricolage), var(--font-inter), sans-serif;
+}
+
+html, body { background: var(--cream); color: var(--ink); }
+body { font-family: var(--font-inter), system-ui, sans-serif; -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent; }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+.press { transition: transform 140ms ease; }
+.press:active { transform: scale(0.96); }
+.screen { animation: screen-in 260ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+.pop { animation: pop 320ms cubic-bezier(0.2, 0.9, 0.3, 1.2); }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes screen-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes pop { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: scale(1); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
