@@ -6,6 +6,8 @@
   --ember: #e4572e;
   --peach: #f7d2be;
   --muted: #7a6e62;
+  --lime: #e6f542;
+  --surface: #f6f6f3;
 }
 
 @theme inline {
@@ -14,6 +16,8 @@
   --color-ember: var(--ember);
   --color-peach: var(--peach);
   --color-muted: var(--muted);
+  --color-lime: var(--lime);
+  --color-surface: var(--surface);
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-display: var(--font-bricolage), var(--font-inter), sans-serif;
 }

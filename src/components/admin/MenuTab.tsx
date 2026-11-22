@@ -43,19 +43,19 @@ export const MenuTab = ({ slug, pin, onAuthError }: Props) => {
   return (
     <div className="space-y-5">
       {msg && <p role="status" className="text-sm font-semibold text-ember">{msg}</p>}
-      <button type="button" onClick={() => setDraft(blank(firstCat))} className="press rounded-full bg-ember px-4 py-2 text-sm font-bold text-white">Add dish</button>
+      <button type="button" onClick={() => setDraft(blank(firstCat))} className="press rounded-full bg-ember px-5 py-2.5 text-sm font-bold text-white">Add dish</button>
       {data.categories.map((c) => (
         <section key={c.id}>
-          <h2 className="mb-2 text-sm font-bold">{c.name}</h2>
-          <ul className="space-y-2">
+          <h2 className="mb-2.5 text-base font-bold">{c.name} <span className="text-sm font-semibold text-muted">· {data.items.filter((i) => i.categoryId === c.id).length}</span></h2>
+          <ul className="grid gap-2.5 md:grid-cols-2 xl:grid-cols-3">
             {data.items.filter((i) => i.categoryId === c.id).map((i) => (
-              <li key={i.id} className="flex items-center gap-3 rounded-2xl bg-white p-3">
+              <li key={i.id} className="flex items-center gap-3 rounded-[22px] bg-surface p-3.5">
                 <button type="button" onClick={() => edit(i)} className="min-w-0 flex-1 text-left">
                   <span className={`block truncate font-semibold ${i.available ? "" : "text-muted line-through"}`}>{i.name}</span>
                   <span className="text-xs text-muted tabular-nums">{formatINR(i.pricePaise)}</span>
                 </button>
-                <button type="button" role="switch" aria-checked={i.available} aria-label={`${i.name} available`} onClick={() => toggle(i)} className={`press h-7 w-12 shrink-0 rounded-full p-0.5 ${i.available ? "bg-ember" : "bg-ink/20"}`}>
-                  <span className={`block h-6 w-6 rounded-full bg-white transition-transform ${i.available ? "translate-x-5" : ""}`} />
+                <button type="button" role="switch" aria-checked={i.available} aria-label={`${i.name} available`} onClick={() => toggle(i)} className={`press h-7 w-12 shrink-0 rounded-full p-0.5 ${i.available ? "bg-ink" : "bg-ink/20"}`}>
+                  <span className={`block h-6 w-6 rounded-full transition-transform ${i.available ? "translate-x-5 bg-lime" : "bg-white"}`} />
                 </button>
               </li>
             ))}

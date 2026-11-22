@@ -16,9 +16,9 @@ const QrCard = ({ slug, table, onRotate }: { slug: string; table: AdminTable; on
     return () => { live = false; };
   }, [slug, table.token]);
   return (
-    <li className="break-inside-avoid rounded-2xl bg-white p-4 text-center print:border print:border-ink/20">
+    <li className="break-inside-avoid rounded-[24px] bg-surface p-4 text-center print:border print:border-ink/20">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      {src ? <img src={src} alt={`QR code for ${table.label}`} className="mx-auto h-40 w-40" /> : <div className="mx-auto h-40 w-40" />}
+      {src ? <img src={src} alt={`QR code for ${table.label}`} className="mx-auto h-40 w-40 rounded-xl bg-white p-1.5" /> : <div className="mx-auto h-40 w-40" />}
       <p className="mt-2 font-display text-xl font-extrabold">{table.label}</p>
       <p className="text-xs text-muted print:hidden">Scan to order</p>
       <div className="mt-2 print:hidden">

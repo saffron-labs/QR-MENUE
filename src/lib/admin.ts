@@ -8,6 +8,20 @@ export type Overview = {
   top: { name: string; qty: number; revenuePaise: number }[];
   byTable: { table: string; orders: number; revenuePaise: number }[];
 };
+export type FloorTable = { label: string; code: string | null; party: number | null; joined: number; totalPaise: number; state: "free" | "eating" | "bill" | "late"; quietMin: number | null };
+export type Insights = {
+  prev: { orders: number; revenuePaise: number; avgPaise: number; taxPaise: number };
+  guests: number; prevGuests: number;
+  avgTableMin: number | null; prevAvgTableMin: number | null;
+  revByHour: number[]; prevRevByHour: number[]; prevByDay: number[];
+  byCategory: { name: string; revenuePaise: number }[];
+  pipeline: { placed: number; preparing: number; ready: number; servedOpen: number };
+  late: { number: number; table: string; status: OrderStatus; minutes: number }[];
+  unavailable: string[];
+  floor: FloorTable[];
+  recent: { number: number; status: OrderStatus; table: string; customer: string | null; guests: number | null; totalPaise: number; createdAt: string; items: string | null }[];
+  timeline: { hour: number; orders: number; bills: number; late: number }[];
+};
 export type AdminOrder = {
   id: string; number: number; status: OrderStatus; table: string; customer: string | null; guests: number | null; notes: string | null;
   subtotalPaise: number; taxPaise: number; totalPaise: number; createdAt: string;
@@ -26,6 +40,7 @@ const call = async <T>(fn: string, args: Record<string, unknown>): Promise<T> =>
 const base = (slug: string, pin: string) => ({ p_slug: slug, p_pin: pin });
 
 export const fetchOverview = (s: string, p: string, days: number) => call<Overview>("admin_overview", { ...base(s, p), p_days: days });
+export const fetchInsights = (s: string, p: string, days: number) => call<Insights>("admin_insights", { ...base(s, p), p_days: days });
 export const fetchAdminOrders = (s: string, p: string, days: number, status: string | null) =>
   call<{ orders: AdminOrder[] }>("admin_orders", { ...base(s, p), p_days: days, p_status: status });
 export const fetchAdminMenu = (s: string, p: string) => call<AdminMenu>("admin_menu", base(s, p));
