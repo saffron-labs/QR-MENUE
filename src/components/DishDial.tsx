@@ -8,6 +8,8 @@ type Props = { items: MenuItem[]; activeId: string; onChange: (id: string) => vo
 
 const STEP_DEG = 40;
 const SNAP_MS = 480;
+// Soft top/bottom fade so plates dissolve instead of being cut by a hard edge.
+const FADE = "linear-gradient(to bottom, transparent 0, #000 9%, #000 88%, transparent 100%)";
 
 /** Rotary-dial dish picker: plates ride a big circle; dragging up/down spins the wheel one dish at a time. */
 export const DishDial = ({ items, activeId, onChange }: Props) => {
@@ -29,7 +31,7 @@ export const DishDial = ({ items, activeId, onChange }: Props) => {
     return () => ro.disconnect();
   }, []);
 
-  const D = Math.min(box.h, 420);
+  const D = Math.min(box.h * 0.9, 420);
   const R = D * 1.3;
   const homeX = box.w * 0.3 + D / 2;
   const cx = homeX + R;
@@ -68,6 +70,7 @@ export const DishDial = ({ items, activeId, onChange }: Props) => {
     <div
       ref={stageRef}
       className="absolute inset-0 touch-none overflow-hidden"
+      style={{ maskImage: FADE, WebkitMaskImage: FADE }}
       onPointerDown={onDown}
       onPointerMove={onMove}
       onPointerUp={onUp}
