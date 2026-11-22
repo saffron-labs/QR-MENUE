@@ -29,6 +29,9 @@ export const KitchenBoard = ({ slug, restaurantName }: { slug: string; restauran
   if (!s.pin) return <PinGate title="Kitchen" subtitle={`${restaurantName} · enter the kitchen PIN`} error={s.error} onSubmit={s.login} />;
 
   const orders = s.board?.orders ?? [];
+  const toCook = Object.entries(
+    orders.filter((o) => o.status === "placed" || o.status === "preparing").flatMap((o) => o.items).reduce<Record<string, number>>((acc, it) => ({ ...acc, [it.name]: (acc[it.name] ?? 0) + it.qty }), {}),
+  ).sort((a, b) => b[1] - a[1]);
   const move = async (o: StaffOrder, to: OrderStatus) => {
     setBusy(o.id);
     setActionErr(null);
@@ -63,14 +66,23 @@ export const KitchenBoard = ({ slug, restaurantName }: { slug: string; restauran
         ))}
       </nav>
 
+      {toCook.length > 0 && (
+        <section aria-label="To cook" className="mx-4 mt-3 flex items-center gap-2 overflow-x-auto rounded-2xl bg-white/5 px-3 py-2">
+          <span className="shrink-0 text-xs font-bold uppercase tracking-wide text-white/50">To cook</span>
+          {toCook.map(([name, qty]) => (
+            <span key={name} className="shrink-0 rounded-full bg-white/10 px-3 py-1 text-sm font-semibold"><span className="font-extrabold text-ember">{qty}×</span> {name}</span>
+          ))}
+        </section>
+      )}
+
       {actionErr && <p role="alert" className="mx-4 mt-3 rounded-xl bg-ember/20 px-4 py-2 text-sm font-semibold text-ember">{actionErr}</p>}
 
       <main className="grid gap-4 p-4 lg:grid-cols-3">
         {COLS.map((c) => {
-          const list = orders.filter((o) => o.status === c.status);
+          const list = orders.filter((o) => o.status === c.status).sort((a, b) => a.createdAt.localeCompare(b.createdAt));
           return (
             <section key={c.status} aria-label={c.title} className={`${tab === c.status ? "block" : "hidden"} lg:block`}>
-              <h2 className="mb-3 hidden text-sm font-bold uppercase tracking-wide text-white/50 lg:block">{c.title} ({list.length})</h2>
+              <h2 className="mb-3 hidden items-center gap-2 text-sm font-bold uppercase tracking-wide text-white/60 lg:flex">{c.title}<span className="rounded-full bg-white/10 px-2 py-0.5 text-xs text-white">{list.length}</span></h2>
               {list.length === 0 && <p className="rounded-2xl border border-dashed border-white/15 py-10 text-center text-sm text-white/40">Nothing here</p>}
               <div className="flex flex-col gap-3">
                 {list.map((o) => {
@@ -78,7 +90,7 @@ export const KitchenBoard = ({ slug, restaurantName }: { slug: string; restauran
                   const late = c.status !== "ready" && m >= 15;
                   const warn = c.status !== "ready" && m >= 8;
                   return (
-                    <article key={o.id} className={`rounded-3xl p-4 ${late ? "bg-[#4a1d12] ring-2 ring-ember" : "bg-[#241d17]"}`}>
+                    <article key={o.id} className={`overflow-hidden rounded-3xl border-l-8 p-4 ${late ? "border-ember bg-[#4a1d12]" : warn ? "border-amber-400 bg-[#2b2218]" : c.status === "ready" ? "border-emerald-500 bg-[#1b2a22]" : "border-white/15 bg-[#241d17]"}`}>
                       <div className="flex items-start justify-between gap-2">
                         <div>
                           <p className="font-display text-3xl font-extrabold leading-none">#{o.number}</p>

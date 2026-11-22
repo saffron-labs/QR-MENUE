@@ -100,7 +100,7 @@ export const AttendantBoard = ({ slug, restaurantName }: { slug: string; restaur
   );
 
   return (
-    <div className="mx-auto min-h-dvh max-w-2xl pb-10">
+    <div className="mx-auto min-h-dvh max-w-6xl pb-10">
       <header className="sticky top-0 z-20 flex flex-wrap items-center justify-between gap-3 bg-cream/95 px-4 py-3 backdrop-blur">
         <div>
           <h1 className="font-display text-2xl font-extrabold tracking-tight">Attendant</h1>
@@ -115,7 +115,7 @@ export const AttendantBoard = ({ slug, restaurantName }: { slug: string; restaur
 
       <div className="px-4">
         <p className="mb-2 text-xs font-semibold text-muted">Tables · <span className="text-emerald-600">green</span> ready to serve · <span className="text-ember">orange</span> in kitchen · tap to filter</p>
-        <div className="grid grid-cols-5 gap-2 sm:grid-cols-7">
+        <div className="grid grid-cols-5 gap-2 sm:grid-cols-7 lg:grid-cols-14">
           {(s.board?.tables ?? []).map((t) => (
             <button key={t.id} type="button" aria-pressed={tableFilter === t.label} onClick={() => setTableFilter(tableFilter === t.label ? null : t.label)} className={`press h-12 rounded-2xl text-sm font-bold ${tableStyle[tableState(t.label)]} ${tableFilter === t.label ? "ring-2 ring-ink" : ""}`}>
               {label(t.label)}
@@ -123,10 +123,10 @@ export const AttendantBoard = ({ slug, restaurantName }: { slug: string; restaur
           ))}
         </div>
         {actionErr && <p role="alert" className="mt-3 rounded-xl bg-ember/15 px-4 py-2 text-sm font-semibold text-ember">{actionErr}</p>}
-        <div className="mt-5 flex flex-col gap-6">
+        <div className="mt-5 grid gap-6 lg:grid-cols-2 lg:items-start">
           {renderSection("Ready to serve", by("ready"), "Nothing waiting. New dishes appear here the moment the kitchen marks them ready.")}
           {renderSection("In the kitchen", by("placed", "preparing"), "No orders cooking.")}
-          {renderSection("Served or cancelled · last 45 min", by("served", "cancelled"), "Nothing yet.")}
+          <div className="lg:col-span-2">{renderSection("Served or cancelled · last 45 min", by("served", "cancelled"), "Nothing yet.")}</div>
         </div>
       </div>
 
