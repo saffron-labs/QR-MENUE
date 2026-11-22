@@ -32,3 +32,21 @@ Stack: Next.js 16 (App Router) · Supabase (Postgres) · Tailwind 4.
 - Rate limiting is in-memory per instance; use a shared store before scaling out.
 - No idempotency key: a double tap after a network blip could create two orders.
 - Dish photos in the seed are stock images and often don't match the dish; use real photos.
+
+
+## Staff screens (kitchen + attendant)
+
+- Kitchen board: `/r/<slug>/kitchen`  (e.g. `/r/chackos/kitchen`)
+- Attendant: `/r/<slug>/staff`
+
+Each role has its own PIN, stored hashed in `staff_pins` and checked inside SECURITY DEFINER functions
+(`supabase/migrations/0003_staff.sql`); the web app still only holds the public key. Wrong PINs are rate limited
+(8 tries / 5 minutes). Set or change a PIN from the Supabase SQL editor:
+
+```sql
+select staff_set_pin('chackos', 'kitchen',   '123456');
+select staff_set_pin('chackos', 'attendant', '654321');
+```
+
+Kitchen: New → Cooking → Ready, with undo, order notes, age warnings, optional new-order sound, and a sold-out switch.
+Attendant: tables overview, ready-to-serve queue, mark served, cancel (with confirm), recent history. Boards poll every 3 s.
