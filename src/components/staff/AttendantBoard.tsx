@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { formatINR } from "@/lib/money";
-import { setOrderStatus, type StaffOrder } from "@/lib/staff";
+import { closeSession, setOrderStatus, type StaffOrder, type StaffSession } from "@/lib/staff";
 import type { OrderStatus } from "@/lib/types";
 import { SoldOutPanel } from "./SoldOutPanel";
 import { PinGate } from "./PinGate";
@@ -19,6 +19,7 @@ export const AttendantBoard = ({ slug, restaurantName }: { slug: string; restaur
   const [tableFilter, setTableFilter] = useState<string | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
   const [confirmCancel, setConfirmCancel] = useState<string | null>(null);
+  const [confirmClose, setConfirmClose] = useState<string | null>(null);
   const [actionErr, setActionErr] = useState<string | null>(null);
 
   useNewOrderAlert(s.board?.orders, (o) => o.status === "ready", () => sound && beep());
@@ -50,6 +51,51 @@ export const AttendantBoard = ({ slug, restaurantName }: { slug: string; restaur
     setBusy(null);
     setConfirmCancel(null);
   };
+
+  const close = async (ss: StaffSession, reason: "paid" | "left_unpaid") => {
+    setBusy(ss.id);
+    setActionErr(null);
+    try {
+      await closeSession(slug, s.pin!, ss.id, reason);
+      await s.refresh();
+    } catch (e) {
+      setActionErr(e instanceof Error ? e.message : "Could not close the table");
+    }
+    setBusy(null);
+    setConfirmClose(null);
+  };
+
+  const renderSession = (ss: StaffSession) => (
+    <article key={ss.id} className={`rounded-3xl border p-4 ${ss.billReady || ss.billRequested ? "border-ink bg-white" : "border-ink/10 bg-white"}`}>
+      <div className="flex items-start justify-between gap-2">
+        <div>
+          <p className="font-display text-2xl font-extrabold leading-none">Table {ss.table.replace(/^T-0?/, "")} <span className="text-base font-bold text-muted">code {ss.code}</span></p>
+          <p className="mt-1 text-sm text-muted">{ss.guests.length} of {ss.partySize} joined · {ageLabel(minutesSince(ss.openedAt, now))} seated</p>
+        </div>
+        <span className="flex flex-col items-end gap-1">
+          {ss.billRequested && <span className="rounded-full bg-ember px-3 py-1 text-xs font-bold uppercase text-white">Bill requested</span>}
+          {ss.billReady && <span className="rounded-full bg-emerald-500 px-3 py-1 text-xs font-bold uppercase text-black">Bill ready</span>}
+        </span>
+      </div>
+      <ul className="mt-3 space-y-1 text-[15px]">
+        {ss.guests.map((g, i) => (
+          <li key={i} className="flex justify-between gap-3"><span className="font-semibold">{g.name}</span><span className="tabular-nums text-muted">{formatINR(g.totalPaise)}</span></li>
+        ))}
+      </ul>
+      <p className="mt-2 flex justify-between border-t border-ink/10 pt-2 text-sm"><span className="font-bold">Table total</span><span className="font-bold tabular-nums">{formatINR(ss.totalPaise)}</span></p>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {confirmClose === ss.id ? (
+          <>
+            <button type="button" disabled={busy === ss.id} onClick={() => close(ss, "paid")} className="press min-h-12 flex-1 rounded-full bg-ink px-5 text-sm font-bold text-white disabled:opacity-50">Yes, paid · close table</button>
+            <button type="button" disabled={busy === ss.id} onClick={() => close(ss, "left_unpaid")} className="press min-h-12 rounded-full bg-ember px-5 text-sm font-bold text-white disabled:opacity-50">Left without paying</button>
+            <button type="button" onClick={() => setConfirmClose(null)} className="press min-h-12 rounded-full bg-cream px-5 text-sm font-bold">Keep open</button>
+          </>
+        ) : (
+          <button type="button" onClick={() => setConfirmClose(ss.id)} className="press min-h-12 flex-1 rounded-full bg-ink px-5 text-sm font-bold text-white">Paid · close table</button>
+        )}
+      </div>
+    </article>
+  );
 
   const renderCard = (o: StaffOrder) => {
     const m = minutesSince(o.createdAt, now);
@@ -123,6 +169,12 @@ export const AttendantBoard = ({ slug, restaurantName }: { slug: string; restaur
           ))}
         </div>
         {actionErr && <p role="alert" className="mt-3 rounded-xl bg-ember/15 px-4 py-2 text-sm font-semibold text-ember">{actionErr}</p>}
+        {(s.board?.sessions.length ?? 0) > 0 && (
+          <section aria-label="Open tables" className="mt-5">
+            <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-muted">Open tables ({s.board?.sessions.length})</h2>
+            <div className="grid gap-3 lg:grid-cols-2">{(s.board?.sessions ?? []).filter((x) => !tableFilter || x.table === tableFilter).map(renderSession)}</div>
+          </section>
+        )}
         <div className="mt-5 grid gap-6 lg:grid-cols-2 lg:items-start">
           {renderSection("Ready to serve", by("ready"), "Nothing waiting. New dishes appear here the moment the kitchen marks them ready.")}
           {renderSection("In the kitchen", by("placed", "preparing"), "No orders cooking.")}

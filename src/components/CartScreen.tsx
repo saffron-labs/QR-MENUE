@@ -13,12 +13,11 @@ type Props = {
   tableLabel: string;
   onBack: () => void;
   onQty: (key: string, qty: number) => void;
-  onPlace: (details: { customerName: string; guestCount: number | undefined; notes: string }) => Promise<string | null>;
+  onPlace: (notes: string) => Promise<string | null>;
+  guestName: string;
 };
 
-export const CartScreen = ({ lines, itemsById, gstRateBp, tableLabel, onBack, onQty, onPlace }: Props) => {
-  const [name, setName] = useState("");
-  const [guests, setGuests] = useState("");
+export const CartScreen = ({ lines, itemsById, gstRateBp, tableLabel, onBack, onQty, onPlace, guestName }: Props) => {
   const [notes, setNotes] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -32,8 +31,7 @@ export const CartScreen = ({ lines, itemsById, gstRateBp, tableLabel, onBack, on
   const place = async () => {
     setBusy(true);
     setError(null);
-    const parsedGuests = Number.parseInt(guests, 10);
-    const message = await onPlace({ customerName: name.trim(), guestCount: Number.isFinite(parsedGuests) ? parsedGuests : undefined, notes: notes.trim() });
+    const message = await onPlace(notes.trim());
     if (message) {
       setError(message);
       setBusy(false);
@@ -46,7 +44,7 @@ export const CartScreen = ({ lines, itemsById, gstRateBp, tableLabel, onBack, on
         <button type="button" onClick={onBack} aria-label="Back to menu" className="press flex h-12 w-12 items-center justify-center rounded-2xl border border-ink/10 bg-white shadow-[0_6px_16px_rgba(80,40,10,0.08)]"><Svg>{Icon.back}</Svg></button>
         <div className="text-center">
           <h1 className="font-display text-xl font-extrabold tracking-tight">Your order</h1>
-          <p className="text-[11px] font-semibold text-[#8a7c6e]">Table {tableLabel.replace(/^T-0?/, "")}</p>
+          <p className="text-[11px] font-semibold text-[#8a7c6e]">Table {tableLabel.replace(/^T-0?/, "")} · {guestName}</p>
         </div>
         <span className="h-12 w-12" aria-hidden="true" />
       </header>
@@ -80,12 +78,6 @@ export const CartScreen = ({ lines, itemsById, gstRateBp, tableLabel, onBack, on
               );
             })}
 
-            <div className="grid grid-cols-[1fr_96px] gap-2 pt-1">
-              <label className="block"><span className="mb-1 block text-xs font-bold">Your name <span className="font-medium text-[#9a8d80]">(optional)</span></span>
-                <input value={name} onChange={(e) => setName(e.target.value.slice(0, 60))} autoComplete="given-name" className="h-12 w-full rounded-2xl border-[1.5px] border-ink/10 bg-white px-3.5 text-sm outline-none focus:border-ember" /></label>
-              <label className="block"><span className="mb-1 block text-xs font-bold">Guests</span>
-                <input value={guests} onChange={(e) => setGuests(e.target.value.replace(/\D/g, "").slice(0, 2))} inputMode="numeric" className="h-12 w-full rounded-2xl border-[1.5px] border-ink/10 bg-white px-3.5 text-sm outline-none focus:border-ember" /></label>
-            </div>
             <label className="block"><span className="mb-1 block text-xs font-bold">Note for the kitchen</span>
               <textarea value={notes} onChange={(e) => setNotes(e.target.value.slice(0, 300))} rows={2} className="w-full resize-none rounded-2xl border-[1.5px] border-ink/10 bg-white px-3.5 py-3 text-sm outline-none focus:border-ember" /></label>
           </div>
@@ -100,7 +92,7 @@ export const CartScreen = ({ lines, itemsById, gstRateBp, tableLabel, onBack, on
             <button type="button" onClick={place} disabled={busy} className="press mt-3 flex h-14 w-full items-center justify-center rounded-full bg-ember text-[15px] font-bold text-white shadow-[0_12px_24px_rgba(228,87,46,0.35)] disabled:opacity-60">
               {busy ? "Placing your order…" : "Place order"}
             </button>
-            <p className="mt-2 text-center text-xs text-[#9a8d80]">Pay at the counter when you’re done.</p>
+            <p className="mt-2 text-center text-xs text-[#9a8d80]">Everyone at the table orders for themselves. One bill at the end.</p>
           </div>
         </>
       )}

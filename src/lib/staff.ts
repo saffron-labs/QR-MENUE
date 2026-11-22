@@ -15,7 +15,12 @@ export type StaffOrder = {
   updatedAt: string;
   items: { name: string; qty: number; notes: string | null; modifiers: { group: string; option: string }[] }[];
 };
-export type StaffBoard = { now: string; tables: { id: string; label: string }[]; orders: StaffOrder[] };
+export type StaffSession = {
+  id: string; table: string; code: string; partySize: number; openedAt: string;
+  billRequested: boolean; billReady: boolean; totalPaise: number;
+  guests: { name: string; totalPaise: number }[];
+};
+export type StaffBoard = { now: string; tables: { id: string; label: string }[]; orders: StaffOrder[]; sessions: StaffSession[] };
 export type StaffMenuItem = { id: string; name: string; category: string; available: boolean };
 
 type Rpc<T> = T | { error: string };
@@ -27,7 +32,15 @@ const call = async <T>(fn: string, args: Record<string, unknown>): Promise<T> =>
   return res as T;
 };
 
-export const fetchBoard = (slug: string, pin: string, role: StaffRole) => call<StaffBoard>("staff_board", { p_slug: slug, p_pin: pin, p_role: role });
+export const fetchBoard = async (slug: string, pin: string, role: StaffRole): Promise<StaffBoard> => {
+  const args = { p_slug: slug, p_pin: pin, p_role: role };
+  const board = await call<Omit<StaffBoard, "sessions">>("staff_board", args);
+  if (role !== "attendant") return { ...board, sessions: [] };
+  const { sessions } = await call<{ sessions: StaffSession[] }>("staff_sessions", args);
+  return { ...board, sessions };
+};
+export const closeSession = (slug: string, pin: string, sessionId: string, reason: "paid" | "left_unpaid") =>
+  call<{ ok: true }>("staff_close_session", { p_slug: slug, p_pin: pin, p_role: "attendant", p_session: sessionId, p_reason: reason });
 export const setOrderStatus = (slug: string, pin: string, role: StaffRole, orderId: string, status: OrderStatus) =>
   call<{ ok: true }>("staff_set_status", { p_slug: slug, p_pin: pin, p_role: role, p_order_id: orderId, p_status: status });
 export const fetchStaffMenu = (slug: string, pin: string, role: StaffRole) =>

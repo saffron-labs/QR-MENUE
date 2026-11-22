@@ -3,13 +3,16 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { type CartLine, defaultOptionIds, sameLine } from "@/lib/cart";
 import { getSupabase } from "@/lib/supabase";
+import { JoinScreen } from "./session/JoinScreen";
+import { PartyScreen } from "./session/PartyScreen";
+import { TableScreen } from "./session/TableScreen";
+import { useTableSession } from "./session/useTableSession";
 import type { Menu } from "@/lib/types";
 import { CartScreen } from "./CartScreen";
 import { CustomizeScreen } from "./CustomizeScreen";
 import { MenuScreen } from "./MenuScreen";
-import { StatusScreen } from "./StatusScreen";
 
-type View = "menu" | "customize" | "cart" | "status";
+type View = "menu" | "customize" | "cart" | "table";
 type Props = { menu: Menu; token: string; tableLabel: string };
 
 export const OrderApp = ({ menu, token, tableLabel }: Props) => {
@@ -23,16 +26,15 @@ export const OrderApp = ({ menu, token, tableLabel }: Props) => {
   const [itemId, setItemId] = useState(itemsInCategory[0]?.id ?? "");
   const [favs, setFavs] = useState<Set<string>>(new Set());
   const [cart, setCart] = useState<CartLine[]>([]);
-  const [orderId, setOrderId] = useState<string | null>(null);
   const [ready, setReady] = useState(false);
+  const session = useTableSession(menu.restaurant.slug, token);
 
   // Restore the cart and the active order after a refresh (browser storage only exists after hydration).
   useEffect(() => {
     try {
-      const saved = JSON.parse(localStorage.getItem(storageKey) ?? "{}") as { cart?: CartLine[]; orderId?: string };
+      const saved = JSON.parse(localStorage.getItem(storageKey) ?? "{}") as { cart?: CartLine[] };
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setCart((saved.cart ?? []).filter((l) => itemsById.get(l.itemId)?.isAvailable));
-      setOrderId(saved.orderId ?? null);
     } catch {
       /* private mode or a corrupt value: start fresh */
     }
@@ -42,11 +44,11 @@ export const OrderApp = ({ menu, token, tableLabel }: Props) => {
   useEffect(() => {
     if (!ready) return;
     try {
-      localStorage.setItem(storageKey, JSON.stringify({ cart, orderId }));
+      localStorage.setItem(storageKey, JSON.stringify({ cart }));
     } catch {
       /* storage unavailable: the cart will not survive a refresh */
     }
-  }, [cart, orderId, ready, storageKey]);
+  }, [cart, ready, storageKey]);
 
   const item = itemsById.get(itemId) ?? itemsInCategory[0];
   const cartCount = cart.reduce((n, l) => n + l.qty, 0);
@@ -67,23 +69,44 @@ export const OrderApp = ({ menu, token, tableLabel }: Props) => {
   const changeQty = (key: string, qty: number) =>
     setCart((prev) => (qty <= 0 ? prev.filter((l) => l.key !== key) : prev.map((l) => (l.key === key ? { ...l, qty: Math.min(20, qty) } : l))));
 
-  const placeOrder = async (details: { customerName: string; guestCount: number | undefined; notes: string }): Promise<string | null> => {
-    const { data, error } = await getSupabase().rpc("place_order", {
+  const placeOrder = async (notes: string): Promise<string | null> => {
+    const c = session.creds;
+    if (!c) return "Your table session was not found. Please scan the QR code again.";
+    const { data, error } = await getSupabase().rpc("place_order_session", {
       p_slug: menu.restaurant.slug,
       p_token: token,
-      p_customer: details.customerName || null,
-      p_guests: details.guestCount ?? null,
-      p_notes: details.notes || null,
-      p_lines: cart.map(({ itemId: id, qty, optionIds, notes }) => ({ itemId: id, qty, optionIds, notes })),
+      p_session: c.sessionId,
+      p_guest: c.guestId,
+      p_secret: c.secret,
+      p_notes: notes || null,
+      p_lines: cart.map(({ itemId: id, qty, optionIds, notes: n }) => ({ itemId: id, qty, optionIds, notes: n })),
     });
     const result = data as { orderId?: string } | null;
     if (error || !result?.orderId) return error?.message ?? "Something went wrong. Please try again.";
-    setOrderId(result.orderId);
     setCart([]);
-    setView("status");
+    await session.refresh();
+    setView("table");
     return null;
   };
 
+  if (session.stage === "loading") {
+    return <main className="mx-auto flex min-h-dvh max-w-md items-center justify-center px-6 text-center text-muted">{session.offline ? "Can’t reach the server. Check your connection and refresh." : "Opening your table…"}</main>;
+  }
+  if (session.stage === "party") {
+    return <PartyScreen restaurantName={menu.restaurant.name} tableLabel={tableLabel} onCreate={session.create} />;
+  }
+  if (session.stage === "join") {
+    return <JoinScreen restaurantName={menu.restaurant.name} tableLabel={tableLabel} onJoin={session.join} />;
+  }
+  if (session.stage === "closed") {
+    return (
+      <main className="mx-auto flex min-h-dvh max-w-md flex-col items-center justify-center gap-4 px-8 text-center">
+        <p className="font-display text-3xl font-extrabold">Thanks for dining with us</p>
+        <p className="text-sm text-muted">This table has been closed. See you again soon.</p>
+        <button type="button" onClick={session.startAgain} className="press h-12 rounded-full bg-ink px-6 text-sm font-bold text-white">Start a new table</button>
+      </main>
+    );
+  }
   if (!item) {
     return <main className="mx-auto flex min-h-dvh max-w-md items-center justify-center px-6 text-center text-muted">The menu is being updated. Please check back shortly.</main>;
   }
@@ -111,10 +134,10 @@ export const OrderApp = ({ menu, token, tableLabel }: Props) => {
     );
   }
   if (view === "cart") {
-    return <CartScreen lines={cart} itemsById={itemsById} gstRateBp={menu.restaurant.gstRateBp} tableLabel={tableLabel} onBack={() => setView("menu")} onQty={changeQty} onPlace={placeOrder} />;
+    return <CartScreen lines={cart} itemsById={itemsById} gstRateBp={menu.restaurant.gstRateBp} tableLabel={tableLabel} guestName={session.view?.me.name ?? ""} onBack={() => setView("menu")} onQty={changeQty} onPlace={placeOrder} />;
   }
-  if (view === "status" && orderId) {
-    return <StatusScreen orderId={orderId} onBack={() => setView("menu")} onNewOrder={() => setView("menu")} />;
+  if (view === "table" && session.view && session.creds) {
+    return <TableScreen view={session.view} creds={session.creds} onBack={() => setView("menu")} onRefresh={session.refresh} />;
   }
 
   return (
@@ -132,8 +155,8 @@ export const OrderApp = ({ menu, token, tableLabel }: Props) => {
       onCustomize={() => setView("customize")}
       onQuickAdd={() => addLine({ itemId: item.id, qty: 1, optionIds: defaultOptionIds(item), notes: "" })}
       onCart={() => setView("cart")}
-      onStatus={() => setView(orderId ? "status" : "cart")}
-      hasOrder={Boolean(orderId)}
+      onStatus={() => setView("table")}
+      hasOrder={Boolean(session.view?.orders.length)}
     />
   );
 };
