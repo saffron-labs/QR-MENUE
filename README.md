@@ -50,3 +50,7 @@ select staff_set_pin('chackos', 'attendant', '654321');
 
 Kitchen: New → Cooking → Ready, with undo, order notes, age warnings, optional new-order sound, and a sold-out switch.
 Attendant: tables overview, ready-to-serve queue, mark served, cancel (with confirm), recent history. Boards poll every 3 s.
+
+### Admin dashboard
+
+`/r/<slug>/admin`, PIN-gated (role `admin`). Tabs: Overview (sales, GST, hourly and top dishes), Orders (history), Menu (edit, add, delete, availability), Tables & QR (print sheet, new tables, replace a QR) and Settings (change kitchen, attendant and admin PINs). Set the first admin PIN with `select staff_set_pin('<slug>','admin','<pin>')` in the SQL editor.
