@@ -3,6 +3,7 @@
 import { formatINR } from "@/lib/money";
 import type { Category, MenuItem } from "@/lib/types";
 import { DishArt, Icon, Svg, shortName } from "./ui";
+import { DishDial } from "./DishDial";
 
 type Props = {
   categories: Category[];
@@ -76,13 +77,7 @@ export const MenuScreen = (p: Props) => {
           })}
         </div>
 
-        <div className="absolute left-[30%] top-1/2 aspect-square -translate-y-1/2" style={{ height: "min(100%, 420px)" }}>
-          <span aria-hidden="true" className="absolute inset-[-6%] rounded-full border-[1.5px] border-dashed border-ember/30 motion-safe:animate-[spin_80s_linear_infinite]" />
-          <span aria-hidden="true" className="absolute inset-[3%] rounded-full bg-peach" />
-          <div key={p.item.id} className="pop relative h-full w-full" style={{ filter: "drop-shadow(0 30px 34px rgba(90,40,10,0.32))" }}>
-            <DishArt item={p.item} priority sizes="(max-width: 480px) 92vw, 420px" />
-          </div>
-        </div>
+        <DishDial items={p.items} activeId={p.item.id} onChange={pick} />
       </section>
 
       <div className="px-6">
