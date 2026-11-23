@@ -1,13 +1,13 @@
 "use client";
 
 import { useCallback } from "react";
-import { fetchInsights, fetchOverview, type Insights, type Overview } from "@/lib/admin";
+import { fetchInsights, fetchOverview, fetchStockAlerts, type Insights, type Overview, type StockAlert } from "@/lib/admin";
 import { formatINR } from "@/lib/money";
 import { Card, FloorLegend, FloorTile, Kpi, Pill, RevenueChart, StatusChip, istTime, type ChartPoint, type KpiData } from "./OverviewCards";
 import { useLoad } from "./useLoad";
 
 type Props = { slug: string; pin: string; days: number; onGoOrders: () => void; onAuthError: () => void };
-type Bundle = { o: Overview; i: Insights };
+type Bundle = { o: Overview; i: Insights; stock: StockAlert[] };
 
 const CAT_COLORS = ["#17120e", "#e4572e", "#e6f542", "#b9b9b1", "#f7d2be", "#8a8a84"];
 
@@ -62,10 +62,11 @@ const buildChart = ({ o, i }: Bundle, days: number): ChartPoint[] => {
   return o.byDay.map((d, k) => ({ label: days <= 7 ? new Date(`${d.day}T00:00:00`).toLocaleDateString("en-IN", { weekday: "short" }) : d.day.slice(8), cur: d.revenuePaise, prev: i.prevByDay[k] ?? 0 }));
 };
 
-const Alerts = ({ i }: { i: Insights }) => {
+const Alerts = ({ i, stock }: { i: Insights; stock: StockAlert[] }) => {
   const rows: { tone: string; title: string; sub: string; when: string }[] = [
     ...i.late.map((l) => ({ tone: "bg-ember", title: `${l.table} waiting ${l.minutes} min`, sub: `Order #${l.number} · ${l.status === "placed" ? "not started" : "cooking"}`, when: `${l.minutes}m` })),
     ...i.floor.filter((f) => f.state === "bill").map((f) => ({ tone: "bg-ink", title: `${f.label} bill ready`, sub: `${formatINR(f.totalPaise)} · waiting to close`, when: `${f.quietMin ?? 0}m` })),
+    ...stock.slice(0, 3).map((s) => ({ tone: s.status === "out" ? "bg-ember" : "bg-amber-400", title: s.status === "out" ? `${s.name} is out of stock` : `${s.name} running low`, sub: s.status === "out" ? "Dishes using it switch off" : `${s.qty} ${s.unit} left · reorder at ${s.reorderLevel}`, when: "" })),
     ...i.unavailable.map((n) => ({ tone: "bg-amber-400", title: `${n} unavailable`, sub: "Switched off on the menu", when: "" })),
   ];
   if (rows.length === 0) return <p className="mt-4 rounded-2xl bg-white p-4 text-sm font-semibold text-muted">All clear. Nothing needs you right now.</p>;
@@ -147,13 +148,13 @@ const HourBars = ({ o }: { o: Overview }) => {
 
 export const OverviewTab = ({ slug, pin, days, onGoOrders, onAuthError }: Props) => {
   const load = useCallback(async (): Promise<Bundle> => {
-    const [o, i] = await Promise.all([fetchOverview(slug, pin, days), fetchInsights(slug, pin, days)]);
-    return { o, i };
+    const [o, i, stock] = await Promise.all([fetchOverview(slug, pin, days), fetchInsights(slug, pin, days), fetchStockAlerts(slug, pin)]);
+    return { o, i, stock };
   }, [slug, pin, days]);
   const { data, error } = useLoad(load, onAuthError);
   if (error) return <p className="text-sm font-semibold text-ember">{error}</p>;
   if (!data) return <p className="text-sm text-muted">Loading…</p>;
-  const { o, i } = data;
+  const { o, i, stock } = data;
   const busy = i.floor.filter((f) => f.state !== "free").length;
   const peakHour = o.byHour.reduce((b, h) => (h.orders > b.orders ? h : b), { hour: 0, orders: 0 });
   const total = formatINR(o.totals.revenuePaise);
@@ -179,7 +180,7 @@ export const OverviewTab = ({ slug, pin, days, onGoOrders, onAuthError }: Props)
       </div>
 
       <div className="grid gap-4 lg:grid-cols-3">
-        <Card title="Needs attention"><Alerts i={i} /></Card>
+        <Card title="Needs attention"><Alerts i={i} stock={stock} /></Card>
         <Card title="Order pipeline"><Pipeline i={i} /></Card>
         <Card title="Sales by category"><Categories i={i} /></Card>
       </div>

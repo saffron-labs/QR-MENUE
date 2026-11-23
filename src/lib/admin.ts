@@ -52,3 +52,27 @@ export const addTable = (s: string, p: string, label: string) => call<{ ok: true
 export const rotateToken = (s: string, p: string, id: string) => call<{ ok: true }>("admin_rotate_token", { ...base(s, p), p_table_id: id });
 export const setStaffPin = (s: string, p: string, role: string, pin: string) =>
   call<{ ok: true }>("admin_set_pin", { ...base(s, p), p_role: role, p_new_pin: pin });
+
+// ---------- inventory ----------
+export type InvUnit = "kg" | "g" | "l" | "ml" | "pcs" | "pack";
+export type InvStatus = "ok" | "low" | "out";
+export type InvItem = {
+  id: string; name: string; unit: InvUnit; category: string | null; qty: number; reorderLevel: number; costPaise: number; supplier: string | null;
+  status: InvStatus; used7d: number; daysLeft: number | null; valuePaise: number; dishes: number;
+};
+export type InvDish = { id: string; name: string; categoryName: string; available: boolean; stockDisabled: boolean; recipe: { itemId: string; qty: number }[] };
+export type InvMovement = { id: string; itemName: string; unit: InvUnit; delta: number; reason: "opening" | "purchase" | "sale" | "cancel" | "waste" | "adjust" | "count"; note: string | null; createdAt: string; orderNumber: number | null };
+export type Inventory = { items: InvItem[]; dishes: InvDish[]; movements: InvMovement[]; wasteWeekPaise: number };
+export type StockAlert = { name: string; unit: InvUnit; qty: number; reorderLevel: number; status: "low" | "out" };
+export type StockMode = "purchase" | "waste" | "count" | "adjust";
+
+export const fetchInventory = (slug: string, pin: string) => call<Inventory>("admin_inventory", base(slug, pin));
+export const fetchStockAlerts = async (slug: string, pin: string) => (await call<{ items: StockAlert[] }>("admin_stock_alerts", base(slug, pin))).items;
+export const saveInvItem = (slug: string, pin: string, item: { id?: string; name: string; unit: InvUnit; category: string; reorderLevel: number; costPaise: number; supplier: string; qty?: number }) =>
+  call<{ id: string }>("admin_save_inv_item", { ...base(slug, pin), p_item: item });
+export const deleteInvItem = (slug: string, pin: string, id: string) => call("admin_delete_inv_item", { ...base(slug, pin), p_item_id: id });
+export const moveStock = (slug: string, pin: string, id: string, mode: StockMode, qty: number, note: string, costPaise: number | null) =>
+  call("admin_stock_move", { ...base(slug, pin), p_item_id: id, p_mode: mode, p_qty: qty, p_note: note, p_cost_paise: costPaise });
+export const saveRecipe = (slug: string, pin: string, menuItemId: string, lines: { itemId: string; qty: number }[]) =>
+  call("admin_save_recipe", { ...base(slug, pin), p_menu_item_id: menuItemId, p_lines: lines });
+export const inventoryQuickstart = (slug: string, pin: string) => call("admin_inv_quickstart", base(slug, pin));

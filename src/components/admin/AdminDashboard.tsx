@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { PinGate } from "@/components/staff/PinGate";
 import { fetchOverview } from "@/lib/admin";
+import { InventoryTab } from "./InventoryTab";
 import { MenuTab } from "./MenuTab";
 import { OrdersTab } from "./OrdersTab";
 import { OverviewTab } from "./OverviewTab";
@@ -10,7 +11,7 @@ import { SettingsTab } from "./SettingsTab";
 import { TablesTab } from "./TablesTab";
 import { useAdminPin } from "./useAdminPin";
 
-const TABS = ["Overview", "Orders", "Menu", "Tables & QR", "Settings"] as const;
+const TABS = ["Overview", "Orders", "Menu", "Inventory", "Tables & QR", "Settings"] as const;
 const RANGES = [[1, "Today"], [7, "7 days"], [30, "30 days"]] as const;
 
 export const AdminDashboard = ({ slug, restaurantName }: { slug: string; restaurantName: string }) => {
@@ -37,7 +38,7 @@ export const AdminDashboard = ({ slug, restaurantName }: { slug: string; restaur
   const authError = () => { setError("Please enter the PIN again."); setPin(null); };
 
   const today = new Date().toLocaleDateString("en-IN", { timeZone: "Asia/Kolkata", weekday: "short", day: "numeric", month: "short" });
-  const titles: Record<(typeof TABS)[number], string> = { Overview: "How we are doing", Orders: "Orders", Menu: "Menu", "Tables & QR": "Tables & QR", Settings: "Settings" };
+  const titles: Record<(typeof TABS)[number], string> = { Overview: "How we are doing", Orders: "Orders", Menu: "Menu", Inventory: "Inventory", "Tables & QR": "Tables & QR", Settings: "Settings" };
 
   return (
     <div className="min-h-dvh bg-white">
@@ -73,6 +74,7 @@ export const AdminDashboard = ({ slug, restaurantName }: { slug: string; restaur
           {tab === "Overview" && <OverviewTab slug={slug} pin={pin} days={days} onGoOrders={() => setTab("Orders")} onAuthError={authError} />}
           {tab === "Orders" && <OrdersTab slug={slug} pin={pin} days={days} onAuthError={authError} />}
           {tab === "Menu" && <MenuTab slug={slug} pin={pin} onAuthError={authError} />}
+          {tab === "Inventory" && <InventoryTab slug={slug} pin={pin} onAuthError={authError} />}
           {tab === "Tables & QR" && <TablesTab slug={slug} pin={pin} onAuthError={authError} />}
           {tab === "Settings" && <SettingsTab slug={slug} pin={pin} onPinChanged={setPin} />}
         </div>
