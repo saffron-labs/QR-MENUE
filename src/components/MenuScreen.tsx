@@ -80,41 +80,31 @@ export const MenuScreen = (p: Props) => {
         <DishDial items={p.items} activeId={p.item.id} onChange={pick} />
       </section>
 
-      <div className="px-6">
-        <div className="flex items-start justify-between gap-3">
-          <h1 className="font-display text-[32px] font-extrabold leading-none tracking-[-0.02em] [text-wrap:balance]">{shortName(p.item.name)}</h1>
-          <button type="button" onClick={p.onFav} aria-label={`Save ${shortName(p.item.name)}`} aria-pressed={p.fav} className="press flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-[1.5px] border-ink/15 bg-white">
-            <Svg fill={p.fav ? "#E4572E" : "none"} stroke={p.fav ? "#E4572E" : "#17120E"}>{Icon.heart}</Svg>
-          </button>
+      <div className="flex items-end gap-2.5 px-[22px] pt-1">
+        <div className="min-w-0 flex-1">
+          <h1 className="truncate font-display text-[27px] font-extrabold leading-[1.05] tracking-[-0.02em]">{shortName(p.item.name)}</h1>
+          <p className="mt-1 truncate text-[12.5px] leading-[1.4] text-muted">{[p.item.prepTime, p.item.description].filter(Boolean).join(" · ")}</p>
         </div>
-        <p className="mt-2 line-clamp-2 min-h-[38px] text-[13px] leading-[1.45] text-muted">{p.item.description}</p>
-      </div>
-
-      <div className="mx-4 mt-3.5 flex h-[72px] items-center gap-4 rounded-[28px] border border-white/85 bg-white/60 px-5 pr-2 shadow-[0_10px_26px_rgba(80,40,10,0.08)]">
-        <div className="shrink-0">
-          <p className="font-display text-[30px] font-extrabold leading-none tracking-[-0.02em] text-ember">{formatINR(p.item.pricePaise)}</p>
-          <p className="mt-[5px] text-[11px] font-semibold text-[#8a7c6e]">Starting price</p>
-        </div>
-        <span aria-hidden="true" className="h-[34px] w-px shrink-0 bg-ink/10" />
-        <button type="button" onClick={p.onCustomize} disabled={!p.item.isAvailable} className="press ml-auto flex h-[54px] items-center gap-3.5 rounded-full bg-ink pl-[22px] pr-1.5 text-[15px] font-bold text-white shadow-[0_10px_20px_rgba(23,18,14,0.24)] disabled:opacity-50">
-          {p.item.isAvailable ? "Customize" : "Sold out"}
-          <span className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-white text-ink">
-            <Svg size={18} width={2.6}>{Icon.plus}</Svg>
-          </span>
+        <button type="button" onClick={p.onFav} aria-label={`Save ${shortName(p.item.name)}`} aria-pressed={p.fav} className="press flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-[1.5px] border-ink/15 bg-white">
+          <Svg size={18} fill={p.fav ? "#E4572E" : "none"} stroke={p.fav ? "#E4572E" : "#17120E"}>{Icon.heart}</Svg>
         </button>
       </div>
 
-      <div className="flex justify-center px-4 pb-[max(18px,env(safe-area-inset-bottom))] pt-4">
-        <nav aria-label="Main" className="flex h-[62px] w-[270px] items-center justify-between rounded-full bg-ink px-2 shadow-[0_16px_30px_rgba(23,18,14,0.3)]">
-          <span aria-label="Menu, current page" className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-ember text-white"><Svg>{Icon.home}</Svg></span>
-          <button type="button" onClick={p.onQuickAdd} aria-label={`Quick add ${shortName(p.item.name)}`} disabled={!p.item.isAvailable} className="press flex h-[46px] w-[46px] items-center justify-center text-[#cfc4b8]"><Svg size={21}>{Icon.plusCircle}</Svg></button>
-          <button type="button" onClick={p.onStatus} aria-label="Order status" className="press relative flex h-[46px] w-[46px] items-center justify-center text-[#cfc4b8]">
+      <div className="px-3.5 pb-[max(18px,env(safe-area-inset-bottom))] pt-3">
+        <nav aria-label="Order" className="flex h-[66px] items-center gap-1.5 rounded-full bg-ink pl-[22px] pr-1.5 shadow-[0_16px_30px_rgba(23,18,14,0.3)]">
+          <div className="shrink-0 text-white">
+            <p className="font-display text-2xl font-extrabold leading-none tracking-[-0.02em] tabular-nums">{formatINR(p.item.pricePaise)}</p>
+            <p className="mt-[3px] text-[10.5px] font-semibold text-[#9c9187]">Starting price</p>
+          </div>
+          <button type="button" onClick={p.onStatus} aria-label="Order status" className="press relative ml-auto flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[#cfc4b8]">
             <Svg size={21}>{Icon.receipt}</Svg>
-            {p.hasOrder && <span className="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-ember" />}
+            {p.hasOrder && <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-ember" />}
           </button>
-          <button type="button" onClick={p.onCart} aria-label="Your order" className="press relative flex h-[46px] w-[46px] items-center justify-center text-[#cfc4b8]">
-            <Svg size={21}>{Icon.bag}</Svg>
-            {p.cartCount > 0 && <span className="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-ember" />}
+          <button type="button" onClick={p.onCustomize} disabled={!p.item.isAvailable} className="press flex h-[54px] shrink-0 items-center rounded-full bg-white px-5 text-[15px] font-bold text-ink disabled:opacity-50">
+            {p.item.isAvailable ? "Customize" : "Sold out"}
+          </button>
+          <button type="button" onClick={p.onQuickAdd} aria-label={`Quick add ${shortName(p.item.name)}`} disabled={!p.item.isAvailable} className="press flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-full bg-ember text-white disabled:opacity-50">
+            <Svg size={20} stroke="#fff" width={2.6}>{Icon.plus}</Svg>
           </button>
         </nav>
       </div>
